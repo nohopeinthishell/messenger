@@ -31,7 +31,7 @@ export default class App {
 
   constructor() {
     this.state = {
-      currentPage: "profile",
+      currentPage: "",
     };
     const appElement = document.getElementById("app");
 
