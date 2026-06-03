@@ -33,3 +33,8 @@ npm run dev
 ## Сборка проекта
 
 npm run build
+
+
+## Ссылка на развернутый проект
+
+[Netlify](https://messenger-project.netlify.app/)
