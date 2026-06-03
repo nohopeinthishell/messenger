@@ -19,8 +19,3 @@
 .button-ui:active {
   background: #2854c7;
 }
-
-.button-ui:focus-visible {
-  outline: 2px solid #3369f3;
-  outline-offset: 2px;
-}
