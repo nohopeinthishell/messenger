@@ -1,0 +1,40 @@
+.input-ui {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-ui__label {
+  color: #999;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 9px;
+}
+
+.input-ui__control {
+  width: 100%;
+  min-height: 23px;
+  padding: 0 0 7px;
+  border: 0;
+  border-bottom: 1px solid #3369f3;
+  border-radius: 0;
+  color: #1e1e1e;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  outline: none;
+}
+
+.input-ui__control_error {
+  border-bottom-color: #ff2f2f;
+  color: #ff2f2f;
+}
+
+.input-ui__error {
+  color: #ff2f2f;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: 8px;
+}

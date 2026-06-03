@@ -1,0 +1,14 @@
+<label class="input-ui {{class}}">
+  <span class="input-ui__label">{{label}}</span>
+  <input
+    class="input-ui__control {{#if error}}input-ui__control_error{{/if}}"
+    type="{{type}}"
+    name="{{name}}"
+    value="{{value}}"
+    placeholder="{{placeholder}}"
+    autocomplete="{{autocomplete}}"
+  />
+  {{#if error}}
+    <span class="input-ui__error">{{error}}</span>
+  {{/if}}
+</label>

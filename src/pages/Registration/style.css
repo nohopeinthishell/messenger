@@ -1,0 +1,11 @@
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 14px 0;
+}
+
+.registration__card {
+  min-height: 615px;
+}

@@ -1,0 +1,21 @@
+@import "./normalize.css";
+@import "./fonts.css";
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Inter";
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  overflow-anchor: none;
+  background-color: white;
+  overflow: unset !important;
+  padding-right: unset !important;
+  overflow-x: hidden;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
