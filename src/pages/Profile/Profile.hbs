@@ -1,0 +1,26 @@
+<main class="profile">
+  <aside class="profile__back">
+    {{> LinkUI href="#" page="chats" text="←" class="profile__back-link"}}
+  </aside>
+
+  <section class="profile__info">
+    {{> Avatar class="profile__avatar"}}
+
+    <h1 class="profile__name">{{profile.displayName}}</h1>
+
+    <ul class="profile__fields">
+      {{#each profile.fields}}
+        <li class="profile__field">
+          <span class="profile__field-label">{{label}}</span>
+          <span class="profile__field-value">{{value}}</span>
+        </li>
+      {{/each}}
+    </ul>
+
+    <nav class="profile__actions">
+      {{> LinkUI href="#" page="profile-edit" text="Изменить данные" class="profile__link"}}
+      {{> LinkUI href="#" page="profile-password" text="Изменить пароль" class="profile__link"}}
+      {{> LinkUI href="#" page="auth" text="Выйти" class="profile__link profile__link_danger"}}
+    </nav>
+  </section>
+</main>

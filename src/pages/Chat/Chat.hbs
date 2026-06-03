@@ -1,0 +1,49 @@
+<main class="chats-page">
+  <aside class="chats-page__sidebar">
+    <header class="chats-page__sidebar-header">
+      {{> LinkUI href="#" page="profile" text="Профиль >" class="chats-page__profile-link"}}
+      <input class="chats-page__search" type="search" name="search" placeholder="Поиск" />
+    </header>
+
+    <ul class="chat-list">
+      {{#each chats}}
+        <li>
+          <button class="chat-list__item {{#if active}}chat-list__item_active{{/if}}" type="button">
+            {{> Avatar class="chat-list__avatar"}}
+            <span class="chat-list__content">
+              <span class="chat-list__name">{{name}}</span>
+              <span class="chat-list__message">{{lastMessage}}</span>
+            </span>
+            <span class="chat-list__time">{{time}}</span>
+          </button>
+        </li>
+      {{/each}}
+    </ul>
+  </aside>
+
+  <section class="chat">
+    <header class="chat__header">
+      {{> Avatar class="chat__avatar"}}
+      <span class="chat__name">{{selectedChat.name}}</span>
+    </header>
+
+    <div class="chat__messages">
+      {{#each messages}}
+        <article class="chat-message {{#if own}}chat-message_own{{/if}}">
+          {{text}}
+          <time class="chat-message__time">{{time}}</time>
+        </article>
+      {{/each}}
+    </div>
+
+    <form class="chat__form">
+      <input
+        class="chat__message-input"
+        type="text"
+        name="message"
+        placeholder="Сообщение"
+      />
+      <button class="chat__send" type="submit" aria-label="Отправить">→</button>
+    </form>
+  </section>
+</main>
