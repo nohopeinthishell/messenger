@@ -1,0 +1,21 @@
+.button-ui {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #3369f3;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  cursor: pointer;
+}
+
+.button-ui:hover {
+  background: #2f60dc;
+}
+
+.button-ui:active {
+  background: #2854c7;
+}
