@@ -1,0 +1,26 @@
+<form class="profile__form">
+  <ul class="profile__fields profile__fields_edit">
+    {{#each fields}}
+      <li class="profile__field">
+        {{{InputUI
+          label=label
+          type=type
+          name=name
+          value=value
+          placeholder=placeholder
+          autocomplete=autocomplete
+          error=error
+          class="profile__field-input"
+        }}}
+      </li>
+    {{/each}}
+  </ul>
+
+  {{{ButtonUI
+    text=button.text
+    type=button.type
+    action=button.action
+    page=button.page
+    class=button.class
+  }}}
+</form>

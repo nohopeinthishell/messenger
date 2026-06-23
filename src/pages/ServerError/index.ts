@@ -1,2 +1,9 @@
 import "./style.css";
-export { default as ServerError } from "./ServerError.hbs?raw";
+import template from "./ServerError.hbs?raw";
+import Block from "../../framework/Block";
+
+export default class ServerError extends Block {
+  public static componentName = "ServerError";
+
+  protected template = template;
+}

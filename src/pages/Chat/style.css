@@ -161,8 +161,16 @@
   border-top: 1px solid #eaeaea;
 }
 
-.chat__message-input {
+.input-ui.chat__message-field {
   flex: 1;
+  gap: 4px;
+}
+
+.input-ui.chat__message-field .input-ui__label {
+  display: none;
+}
+
+.input-ui.chat__message-field .input-ui__control {
   min-height: 32px;
   padding: 0 20px;
   border: 0;
@@ -172,6 +180,17 @@
   font-size: 12px;
   line-height: 12px;
   outline: none;
+}
+
+.input-ui.chat__message-field .input-ui__control_error {
+  color: #1e1e1e;
+  border: 1px solid #ff2f2f;
+}
+
+.input-ui.chat__message-field .input-ui__error {
+  padding-left: 20px;
+  font-size: 8px;
+  line-height: 8px;
 }
 
 .chat__send {

@@ -106,8 +106,25 @@
   margin-bottom: 60px;
 }
 
-.profile__field-input {
+.profile__field-input.input-ui {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 8px;
+  align-items: center;
+}
+
+.profile__field-input .input-ui__label {
+  color: #1e1e1e;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+}
+
+.profile__field-input .input-ui__control {
   width: 60%;
+  justify-self: end;
+  min-height: auto;
+  padding: 0;
   border: 0;
   color: #999;
   background: transparent;
@@ -116,6 +133,17 @@
   font-weight: 500;
   line-height: 13px;
   outline: none;
+}
+
+.profile__field-input .input-ui__control_error {
+  color: #ff2f2f;
+}
+
+.profile__field-input .input-ui__error {
+  grid-column: 1 / -1;
+  justify-self: end;
+  max-width: 60%;
+  text-align: right;
 }
 
 .profile__save {

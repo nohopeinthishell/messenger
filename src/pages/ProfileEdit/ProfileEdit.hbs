@@ -1,28 +1,11 @@
 <main class="profile">
   <aside class="profile__back">
-    {{> LinkUI href="#" page="profile" text="←" class="profile__back-link"}}
+    {{{LinkUI href="#" page="profile" text="←" class="profile__back-link"}}}
   </aside>
 
   <section class="profile__info">
-    {{> Avatar class="profile__avatar profile__avatar_margin"}}
+    {{{Avatar class="profile__avatar profile__avatar_margin"}}}
 
-    <form class="profile__form">
-      <ul class="profile__fields profile__fields_edit">
-        {{#each profileEdit.fields}}
-          <li class="profile__field">
-            <label class="profile__field-label" for="{{name}}">{{label}}</label>
-            <input
-              class="profile__field-input"
-              id="{{name}}"
-              type="{{type}}"
-              name="{{name}}"
-              value="{{value}}"
-            />
-          </li>
-        {{/each}}
-      </ul>
-
-      {{> ButtonUI text="Сохранить" type="submit" action="save-profile" page="profile" class="profile__save"}}
-    </form>
+    {{{FormProfile fields=fields button=button}}}
   </section>
 </main>

@@ -1,2 +1,13 @@
 import "./style.css";
-export { default as Registration } from "./Registration.hbs?raw";
+
+import template from "./Registration.hbs?raw";
+import Block, { type BlockOwnProps } from "../../framework/Block";
+import type { CardProps } from "../../components/Card";
+
+type RegistrationProps = BlockOwnProps & {
+  regCard: CardProps;
+};
+
+export default class Registration extends Block<RegistrationProps> {
+  protected template = template;
+}
