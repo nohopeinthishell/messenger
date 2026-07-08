@@ -6,7 +6,6 @@ import Block from "../../framework/Block";
 
 export type LinkUIProps = BlockOwnProps & {
   href?: string;
-  page?: string;
   text?: string;
   class?: string;
 };

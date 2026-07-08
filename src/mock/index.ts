@@ -18,12 +18,11 @@ export const authCard = {
     text: "Авторизоваться",
     type: "submit",
     action: "login",
-    page: "chats",
+    page: "/messenger",
   },
   links: [
     {
-      href: "#",
-      page: "registration",
+      href: "/sign-up",
       text: "Нет аккаунта?",
     },
   ],
@@ -79,12 +78,11 @@ export const regCard = {
     text: "Зарегистрироваться",
     type: "submit",
     action: "reg",
-    page: "auth",
+    page: "/",
   },
   links: [
     {
-      href: "#",
-      page: "auth",
+      href: "/messenger",
       text: "Войти",
     },
   ],
@@ -145,7 +143,7 @@ export const profilePassword = {
     text: "Сохранить",
     type: "submit",
     action: "save-password",
-    page: "profile",
+    page: "/settings",
     class: "profile__save",
   },
 };
@@ -193,7 +191,7 @@ export const profileEdit = {
     text: "Сохранить",
     type: "submit",
     action: "save-profile",
-    page: "profile",
+    page: "/settings",
     class: "profile__save",
   },
 };

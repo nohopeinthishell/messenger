@@ -1,6 +1,10 @@
 <main class="profile">
   <aside class="profile__back">
-    {{{LinkUI href="#" page="chats" text="←" class="profile__back-link"}}}
+    {{{LinkUI
+      href="/messenger"
+      text="←"
+      class="profile__back-link"
+    }}}
   </aside>
 
   <section class="profile__info">
@@ -19,20 +23,17 @@
 
     <nav class="profile__actions">
       {{{LinkUI
-        href="#"
-        page="profile-edit"
+        href="/profile-edit"
         text="Изменить данные"
         class="profile__link"
       }}}
       {{{LinkUI
-        href="#"
-        page="profile-password"
+        href="/profile-password"
         text="Изменить пароль"
         class="profile__link"
       }}}
       {{{LinkUI
-        href="#"
-        page="auth"
+        href="/"
         text="Выйти"
         class="profile__link profile__link_danger"
       }}}
