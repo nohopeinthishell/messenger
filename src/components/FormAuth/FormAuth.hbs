@@ -1,0 +1,29 @@
+<form class="form-auth">
+  <div class="form-auth__content">
+    {{#each inputs}}
+      {{{InputUI
+        label=label
+        type=type
+        name=name
+        value=value
+        placeholder=placeholder
+        autocomplete=autocomplete
+        error=error
+      }}}
+    {{/each}}
+  </div>
+  <div class="form-auth__btns">
+    {{#if button}}
+      {{{ButtonUI
+        text=button.text
+        type=button.type
+        action=button.action
+        page=button.page
+        class=button.class
+      }}}
+    {{/if}}
+    {{#each links}}
+      {{{LinkUI href=href page=page text=text class=class}}}
+    {{/each}}
+  </div>
+</form>

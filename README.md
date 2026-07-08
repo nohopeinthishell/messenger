@@ -20,20 +20,36 @@
 - Vite
 - Handlebars
 - PostCSS
+- ESLint
+- Stylelint
+- EditorConfig
 - HTML
 
 ## Установка
 
+```bash
 npm install
+```
 
 ## Запуск проекта
 
+```bash
 npm run dev
+```
 
 ## Сборка проекта
 
+```bash
 npm run build
+```
 
+## Проверка качества кода
+
+```bash
+npm run lint
+```
+
+Команда запускает проверку типов TypeScript, ESLint и Stylelint.
 
 ## Ссылка на развернутый проект
 

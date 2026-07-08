@@ -1,0 +1,19 @@
+.form-auth {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.form-auth__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 45px;
+}
+
+.form-auth__btns {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+}
