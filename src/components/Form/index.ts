@@ -1,3 +1,4 @@
+import { AuthAPI, type SignUpData } from "../../api/AuthAPI";
 import Block, { type BlockOwnProps } from "../../framework/Block";
 import { validation } from "../../services/validation";
 import InputUI from "../../ui/InputUI";
@@ -33,8 +34,13 @@ export default abstract class Form<
         return acc;
       }, {});
 
-      if (inputs.length === Object.values(formData).length)
-        console.log(formData);
+      console.log(formData);
+
+      if (inputs.length === Object.values(formData).length) {
+        const authAPI = new AuthAPI();
+
+        authAPI.signup(formData as SignUpData);
+      }
     },
   };
 }

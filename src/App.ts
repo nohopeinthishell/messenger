@@ -54,13 +54,6 @@ export default class App {
           router.go(href);
         }
       }
-
-      const button = target.closest("button");
-      const page = button?.getAttribute("page");
-
-      if (page) {
-        router.go(page);
-      }
     });
   };
 }
