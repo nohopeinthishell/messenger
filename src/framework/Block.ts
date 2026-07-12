@@ -23,7 +23,7 @@ type EventListEntry = [
 export default abstract class Block<
   Props extends BlockOwnProps = BlockOwnProps,
 > {
-  protected abstract template: string;
+  protected template = "";
 
   protected props = {} as Props;
 

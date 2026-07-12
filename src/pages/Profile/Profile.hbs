@@ -1,24 +1,43 @@
 <main class="profile">
   <aside class="profile__back">
-    {{{LinkUI
-      href="/messenger"
-      text="←"
-      class="profile__back-link"
-    }}}
+    {{{LinkUI href="/messenger" text="←" class="profile__back-link"}}}
   </aside>
 
   <section class="profile__info">
     {{{Avatar class="profile__avatar"}}}
 
-    <h1 class="profile__name">{{displayName}}</h1>
+    <h1 class="profile__name">{{user.display_name}}</h1>
 
     <ul class="profile__fields">
-      {{#each fields}}
-        <li class="profile__field">
-          <span class="profile__field-label">{{label}}</span>
-          <span class="profile__field-value">{{value}}</span>
-        </li>
-      {{/each}}
+      <li class="profile__field">
+        <span class="profile__field-label">Почта</span>
+        <span class="profile__field-value">{{user.email}}</span>
+      </li>
+
+      <li class="profile__field">
+        <span class="profile__field-label">Логин</span>
+        <span class="profile__field-value">{{user.login}}</span>
+      </li>
+
+      <li class="profile__field">
+        <span class="profile__field-label">Имя</span>
+        <span class="profile__field-value">{{user.first_name}}</span>
+      </li>
+
+      <li class="profile__field">
+        <span class="profile__field-label">Фамилия</span>
+        <span class="profile__field-value">{{user.second_name}}</span>
+      </li>
+
+      <li class="profile__field">
+        <span class="profile__field-label">Имя в чате</span>
+        <span class="profile__field-value">{{user.display_name}}</span>
+      </li>
+
+      <li class="profile__field">
+        <span class="profile__field-label">Телефон</span>
+        <span class="profile__field-value">{{user.phone}}</span>
+      </li>
     </ul>
 
     <nav class="profile__actions">
@@ -36,6 +55,7 @@
         href="/"
         text="Выйти"
         class="profile__link profile__link_danger"
+        action="logout"
       }}}
     </nav>
   </section>

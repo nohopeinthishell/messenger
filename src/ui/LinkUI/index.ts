@@ -8,6 +8,7 @@ export type LinkUIProps = BlockOwnProps & {
   href?: string;
   text?: string;
   class?: string;
+  action?: string;
 };
 
 export default class LinkUI extends Block<LinkUIProps> {

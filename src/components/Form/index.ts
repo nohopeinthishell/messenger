@@ -1,4 +1,3 @@
-import { AuthAPI, type SignUpData } from "../../api/AuthAPI";
 import Block, { type BlockOwnProps } from "../../framework/Block";
 import { validation } from "../../services/validation";
 import InputUI from "../../ui/InputUI";
@@ -6,6 +5,9 @@ import InputUI from "../../ui/InputUI";
 export default abstract class Form<
   Props extends BlockOwnProps = BlockOwnProps,
 > extends Block<Props> {
+  protected abstract onSubmit(
+    formData: Record<string, string>,
+  ): void | Promise<void>;
   protected events = {
     submit: (e: Event) => {
       e.preventDefault();
@@ -34,12 +36,8 @@ export default abstract class Form<
         return acc;
       }, {});
 
-      console.log(formData);
-
       if (inputs.length === Object.values(formData).length) {
-        const authAPI = new AuthAPI();
-
-        authAPI.signup(formData as SignUpData);
+        this.onSubmit(formData);
       }
     },
   };

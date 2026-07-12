@@ -1,11 +1,16 @@
 import Route from "./Route";
 import type { BlockOwnProps } from "../framework/Block";
 import type { RouteBlockConstructor } from "./Route";
+import store from "../store/store";
+
+type RouteGuard = "private" | "guestOnly";
 
 export default class Router {
   private static __instance: Router | null = null;
 
   private routes: Route[] = [];
+
+  private routeGuards: Map<Route, RouteGuard> = new Map();
 
   private history: History = window.history;
 
@@ -29,12 +34,17 @@ export default class Router {
     pathname: string,
     block: RouteBlockConstructor<Props>,
     props?: Props,
+    guardType?: RouteGuard,
   ): this {
     const route = new Route(pathname, () => new block(props), {
       rootQuery: this._rootQuery,
     });
 
     this.routes.push(route);
+
+    if (guardType) {
+      this.routeGuards.set(route, guardType);
+    }
 
     return this;
   }
@@ -50,6 +60,19 @@ export default class Router {
     const route = this.getRoute(pathname) ?? this.getRoute("/404");
 
     if (!route) {
+      return;
+    }
+
+    const guardType = this.routeGuards.get(route);
+    const isUser = Boolean(store.getState().user);
+
+    if (guardType === "private" && !isUser) {
+      this.go("/");
+      return;
+    }
+
+    if (guardType === "guestOnly" && isUser) {
+      this.go("/messenger");
       return;
     }
 
@@ -78,3 +101,5 @@ export default class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 }
+
+export const router = new Router("#app");

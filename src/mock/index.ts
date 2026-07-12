@@ -26,6 +26,7 @@ export const authCard = {
       text: "Нет аккаунта?",
     },
   ],
+  formType: "signin" as const,
 };
 
 export const regCard = {
@@ -82,10 +83,12 @@ export const regCard = {
   },
   links: [
     {
-      href: "/messenger",
+      href: "/",
       text: "Войти",
     },
   ],
+
+  formType: "signup" as const,
 };
 
 export const profile = {
@@ -124,73 +127,22 @@ export const profilePassword = {
       label: "Старый пароль",
       name: "oldPassword",
       type: "password",
-      value: "password",
     },
     {
       label: "Новый пароль",
       name: "newPassword",
       type: "password",
-      value: "newpassword",
     },
     {
       label: "Повторите новый пароль",
       name: "newPasswordRepeat",
       type: "password",
-      value: "newpassword",
     },
   ],
   button: {
     text: "Сохранить",
     type: "submit",
     action: "save-password",
-    page: "/settings",
-    class: "profile__save",
-  },
-};
-
-export const profileEdit = {
-  fields: [
-    {
-      label: "Почта",
-      name: "email",
-      type: "email",
-      value: "pochta@yandex.ru",
-    },
-    {
-      label: "Логин",
-      name: "login",
-      type: "text",
-      value: "ivanivanov",
-    },
-    {
-      label: "Имя",
-      name: "first_name",
-      type: "text",
-      value: "Иван",
-    },
-    {
-      label: "Фамилия",
-      name: "second_name",
-      type: "text",
-      value: "Иванов",
-    },
-    {
-      label: "Имя в чате",
-      name: "display_name",
-      type: "text",
-      value: "Иван",
-    },
-    {
-      label: "Телефон",
-      name: "phone",
-      type: "tel",
-      value: "+79099673030",
-    },
-  ],
-  button: {
-    text: "Сохранить",
-    type: "submit",
-    action: "save-profile",
     page: "/settings",
     class: "profile__save",
   },

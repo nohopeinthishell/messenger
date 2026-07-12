@@ -16,36 +16,20 @@ type RequestOptions = {
 };
 
 class HTTPTransport {
-  get = (url: string, options: RequestOptions) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.GET },
-      options.timeout,
-    );
+  get = (url: string, options: RequestOptions = {}) => {
+    return this.request(url, { ...options, method: METHODS.GET });
   };
 
-  post = (url: string, options: RequestOptions) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.POST },
-      options.timeout,
-    );
+  post = (url: string, options: RequestOptions = {}) => {
+    return this.request(url, { ...options, method: METHODS.POST });
   };
 
-  put = (url: string, options: RequestOptions) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.PUT },
-      options.timeout,
-    );
+  put = (url: string, options: RequestOptions = {}) => {
+    return this.request(url, { ...options, method: METHODS.PUT });
   };
 
-  delete = (url: string, options: RequestOptions) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.DELETE },
-      options.timeout,
-    );
+  delete = (url: string, options: RequestOptions = {}) => {
+    return this.request(url, { ...options, method: METHODS.DELETE });
   };
 
   request = (url: string, options: RequestOptions, timeout = 5000) => {
@@ -61,6 +45,7 @@ class HTTPTransport {
       const isGet = method === METHODS.GET;
 
       xhr.open(method, isGet && data ? `${url}${queryString(data)}` : url);
+      xhr.withCredentials = true;
 
       if (responseType) {
         xhr.responseType = responseType;

@@ -1,4 +1,4 @@
-import Block from "../framework/Block";
+import Block, { type BlockOwnProps } from "../framework/Block";
 import { merge, set, type PlainObject } from "../utils/utils";
 
 type Listener = () => void;
@@ -35,27 +35,28 @@ class Store {
 
 const store = new Store();
 
-type BlockConstructorWithProps = new (
-  ...args: ConstructorParameters<typeof Block>
-) => {
-  setProps(props: PlainObject): void;
-};
+type BlockConstructor<Props extends BlockOwnProps = BlockOwnProps> = new (
+  props?: Props,
+) => Block<Props>;
 
-export function connect(Component: typeof Block) {
-  const ConnectedComponent = Component as unknown as BlockConstructorWithProps;
+export function connect<Props extends BlockOwnProps>(
+  Component: BlockConstructor<Props>,
+  mapStateToProps: (state: PlainObject) => Partial<Props> = (state) =>
+    state as Partial<Props>,
+): BlockConstructor<Props> {
+  class ConnectedComponent extends Component {
+    constructor(props?: Props) {
+      super(props);
 
-  return class extends ConnectedComponent {
-    constructor(...args: ConstructorParameters<typeof Block>) {
-      // Не забываем передать все аргументы конструктора
-      super(...args);
+      this.setProps(mapStateToProps(store.getState()));
 
-      // Подписываемся на событие обновления хранилища
       store.subscribe(() => {
-        // Вызываем обновление компонента, передав данные из хранилища
-        this.setProps({ ...store.getState() });
+        this.setProps(mapStateToProps(store.getState()));
       });
     }
-  };
+  }
+
+  return ConnectedComponent;
 }
 
 export default store;
