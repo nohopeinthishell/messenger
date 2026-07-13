@@ -8,6 +8,7 @@ export type UpdateProfileData = {
   login: string;
   email: string;
   phone: string;
+  avatar?: string;
 };
 
 export type UpdatePasswordData = {
@@ -28,5 +29,14 @@ export class UserAPI extends BaseAPI {
     return this.http.put("https://ya-praktikum.tech/api/v2/user/password", {
       data,
     });
+  }
+  
+  updateAvatar(data: FormData) {
+    return this.http.put(
+      "https://ya-praktikum.tech/api/v2/user/profile/avatar",
+      {
+        data,
+      },
+    );
   }
 }

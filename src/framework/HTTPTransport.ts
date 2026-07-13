@@ -9,7 +9,7 @@ const METHODS = {
 
 type RequestOptions = {
   headers?: Record<string, string>;
-  data?: PlainObject;
+  data?: PlainObject | FormData;
   responseType?: XMLHttpRequestResponseType;
   timeout?: number;
   method?: string;
@@ -44,7 +44,12 @@ class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && data ? `${url}${queryString(data)}` : url);
+      xhr.open(
+        method,
+        isGet && data && !(data instanceof FormData)
+          ? `${url}${queryString(data)}`
+          : url,
+      );
       xhr.withCredentials = true;
 
       if (responseType) {

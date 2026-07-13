@@ -1,4 +1,8 @@
-import { UserAPI, type UpdatePasswordData, type UpdateProfileData } from "../api/UserAPI";
+import {
+  UserAPI,
+  type UpdatePasswordData,
+  type UpdateProfileData,
+} from "../api/UserAPI";
 import store from "../store/store";
 import { router } from "../router/Router";
 
@@ -16,6 +20,10 @@ class UserController {
     await this.api.updatePassword(data);
 
     router.go("/settings");
+  }
+
+  async updateAvatar(data: FormData) {
+    await this.api.updateAvatar(data);
   }
 }
 

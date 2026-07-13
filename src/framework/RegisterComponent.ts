@@ -1,8 +1,10 @@
 import Avatar from "../components/Avatar";
+import AvatarUploadForm from "../components/AvatarUploadForm";
 import Card from "../components/Card";
 import FormAuth from "../components/FormAuth";
 import FormMessage from "../components/FormMessage";
 import FormProfile from "../components/FormProfile";
+import Modal from "../components/Modal";
 import ButtonUI from "../ui/ButtonUI";
 import InputUI from "../ui/InputUI";
 import LinkUI from "../ui/LinkUI";
@@ -17,4 +19,6 @@ export function registerComponents() {
   registerComponent(FormAuth);
   registerComponent(FormProfile);
   registerComponent(FormMessage);
+  registerComponent(Modal);
+  registerComponent(AvatarUploadForm);
 }

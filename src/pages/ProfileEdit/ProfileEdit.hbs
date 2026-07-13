@@ -4,8 +4,17 @@
   </aside>
 
   <section class="profile__info">
-    {{{Avatar class="profile__avatar profile__avatar_margin"}}}
+    {{{Avatar
+      class="profile__avatar profile__avatar_margin"
+      src=user.avatar
+      action="avatar-open"
+    }}}
 
     {{{FormProfile fields=fields button=button formType="profile"}}}
   </section>
+
+  {{{Modal
+    isOpen=isAvatarModalOpen
+    content=modalContent
+  }}}
 </main>

@@ -4,11 +4,33 @@ import type { FormProfileProps } from "../../components/FormProfile";
 import type { PlainObject } from "../../utils/utils";
 import { connect } from "../../store/store";
 import type { UpdateProfileData } from "../../api/UserAPI";
+import AvatarUploadForm from "../../components/AvatarUploadForm";
 
-type ProfileProps = BlockOwnProps & Pick<FormProfileProps, "fields" | "button">;
+type ProfileProps = BlockOwnProps &
+  Pick<FormProfileProps, "fields" | "button"> & {
+    isAvatarModalOpen: boolean;
+    modalContent: Block;
+    user?: UpdateProfileData;
+  };
 
 class ProfileEdit extends Block<ProfileProps> {
   public static componentName = "ProfileEdit";
+
+  protected events = {
+    click: async (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      const avatar = target.closest("[data-action='avatar-open']");
+      if (avatar) {
+        this.setProps({
+          isAvatarModalOpen: true,
+          modalContent: new AvatarUploadForm(),
+        });
+
+        return;
+      }
+    },
+  };
 
   protected template = template;
 }
@@ -18,9 +40,8 @@ export default connect(ProfileEdit, mapStateToProps);
 function mapStateToProps(state: PlainObject): Partial<ProfileProps> {
   const user = state.user as UpdateProfileData | undefined;
 
-  console.log(user);
-
   return {
+    user,
     fields: [
       {
         label: "Почта",

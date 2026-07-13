@@ -12,6 +12,7 @@ type User = {
   second_name: string;
   display_name?: string;
   phone: string;
+  user?: string;
 };
 
 type ProfileProps = BlockOwnProps & {
