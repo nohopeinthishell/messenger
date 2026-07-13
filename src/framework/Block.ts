@@ -23,7 +23,7 @@ type EventListEntry = [
 export default abstract class Block<
   Props extends BlockOwnProps = BlockOwnProps,
 > {
-  protected abstract template: string;
+  protected template = "";
 
   protected props = {} as Props;
 
@@ -34,6 +34,8 @@ export default abstract class Block<
   protected refs: Record<string, Element> = {};
 
   protected events: EventListType = {};
+
+  private isMounted = false;
 
   constructor(props: Props = {} as Props) {
     this.props = props;
@@ -60,7 +62,11 @@ export default abstract class Block<
 
   private mountComponent() {
     this.attachListeners();
-    this.componentDidMount();
+
+    if (!this.isMounted) {
+      this.isMounted = true;
+      this.componentDidMount();
+    }
   }
 
   protected componentWillUnmount() {}

@@ -1,0 +1,41 @@
+<form class="avatar-upload">
+  <h2
+    class="avatar-upload__title {{#if isUploadError}}avatar-upload__title_error{{/if}}"
+  >
+    {{#if isUploadError}}
+      Ошибка, попробуйте ещё раз
+    {{else}}
+      {{#if fileName}}
+        Файл загружен
+      {{else}}
+        Загрузите файл
+      {{/if}}
+    {{/if}}
+  </h2>
+
+  <label class="avatar-upload__field">
+    <input
+      class="avatar-upload__input"
+      name="avatar"
+      type="file"
+      accept="image/*"
+    />
+    {{#if fileName}}
+      <span class="avatar-upload__file-name">{{fileName}}</span>
+    {{else}}
+      <span class="avatar-upload__file-link">
+        Выбрать файл на компьютере
+      </span>
+    {{/if}}
+  </label>
+
+  {{{ButtonUI
+    type="submit"
+    text="Поменять"
+    class="avatar-upload__submit"
+  }}}
+
+  {{#if error}}
+    <span class="avatar-upload__error">{{error}}</span>
+  {{/if}}
+</form>

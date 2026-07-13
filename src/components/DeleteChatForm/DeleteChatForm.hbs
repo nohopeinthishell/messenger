@@ -1,0 +1,15 @@
+<form class="delete-chat-form">
+  <h2 class="delete-chat-form__title">Удалить чат?</h2>
+
+  {{#if chatTitle}}
+    <p class="delete-chat-form__text">
+      Чат "{{chatTitle}}" будет удален без возможности отмены.
+    </p>
+  {{else}}
+    <p class="delete-chat-form__text">
+      Выбранный чат будет удален без возможности отмены.
+    </p>
+  {{/if}}
+
+  {{{ButtonUI type="submit" text="Удалить" class="delete-chat-form__submit"}}}
+</form>

@@ -18,15 +18,15 @@ export const authCard = {
     text: "Авторизоваться",
     type: "submit",
     action: "login",
-    page: "chats",
+    page: "/messenger",
   },
   links: [
     {
-      href: "#",
-      page: "registration",
+      href: "/sign-up",
       text: "Нет аккаунта?",
     },
   ],
+  formType: "signin" as const,
 };
 
 export const regCard = {
@@ -79,15 +79,16 @@ export const regCard = {
     text: "Зарегистрироваться",
     type: "submit",
     action: "reg",
-    page: "auth",
+    page: "/",
   },
   links: [
     {
-      href: "#",
-      page: "auth",
+      href: "/",
       text: "Войти",
     },
   ],
+
+  formType: "signup" as const,
 };
 
 export const profile = {
@@ -126,112 +127,32 @@ export const profilePassword = {
       label: "Старый пароль",
       name: "oldPassword",
       type: "password",
-      value: "password",
     },
     {
       label: "Новый пароль",
       name: "newPassword",
       type: "password",
-      value: "newpassword",
     },
     {
       label: "Повторите новый пароль",
       name: "newPasswordRepeat",
       type: "password",
-      value: "newpassword",
     },
   ],
   button: {
     text: "Сохранить",
     type: "submit",
     action: "save-password",
-    page: "profile",
-    class: "profile__save",
-  },
-};
-
-export const profileEdit = {
-  fields: [
-    {
-      label: "Почта",
-      name: "email",
-      type: "email",
-      value: "pochta@yandex.ru",
-    },
-    {
-      label: "Логин",
-      name: "login",
-      type: "text",
-      value: "ivanivanov",
-    },
-    {
-      label: "Имя",
-      name: "first_name",
-      type: "text",
-      value: "Иван",
-    },
-    {
-      label: "Фамилия",
-      name: "second_name",
-      type: "text",
-      value: "Иванов",
-    },
-    {
-      label: "Имя в чате",
-      name: "display_name",
-      type: "text",
-      value: "Иван",
-    },
-    {
-      label: "Телефон",
-      name: "phone",
-      type: "tel",
-      value: "+79099673030",
-    },
-  ],
-  button: {
-    text: "Сохранить",
-    type: "submit",
-    action: "save-profile",
-    page: "profile",
+    page: "/settings",
     class: "profile__save",
   },
 };
 
 export const chatPage = {
-  chats: [
-    {
-      name: "Андрей",
-      lastMessage: "Изображение",
-      time: "10:49",
-      active: true,
-    },
-    {
-      name: "Киноклуб",
-      lastMessage: "Стикер",
-      time: "12:00",
-    },
-    {
-      name: "Илья",
-      lastMessage: "Друзья, у меня для вас особенный выпуск новостей...",
-      time: "15:12",
-    },
-  ],
-  selectedChat: {
-    name: "Андрей",
-  },
+  chats: [],
+  selectedChat: null,
+  messages: [],
 
-  messages: [
-    {
-      text: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
-      time: "11:56",
-    },
-    {
-      text: "Отлично, добавлю это в прототип.",
-      time: "12:00",
-      own: true,
-    },
-  ],
   messageForm: {
     input: {
       type: "text",

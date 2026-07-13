@@ -20,5 +20,9 @@ export type FormMessageProps = BlockOwnProps & {
 export default class FormMessage extends Form<FormMessageProps> {
   public static componentName = "FormMessage";
 
+  protected onSubmit(formData: Record<string, string>) {
+    console.log(formData);
+  }
+
   protected template = template;
 }

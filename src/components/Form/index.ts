@@ -1,12 +1,21 @@
 import Block, { type BlockOwnProps } from "../../framework/Block";
 import { validation } from "../../services/validation";
+import { handleError } from "../../services/toast";
 import InputUI from "../../ui/InputUI";
 
 export default abstract class Form<
   Props extends BlockOwnProps = BlockOwnProps,
 > extends Block<Props> {
+  protected abstract onSubmit(
+    formData: Record<string, string>,
+  ): void | Promise<void>;
+
+  protected getSubmitErrorMessage(): string {
+    return "Не удалось выполнить действие";
+  }
+
   protected events = {
-    submit: (e: Event) => {
+    submit: async (e: Event) => {
       e.preventDefault();
 
       const inputs = this.children.filter(
@@ -22,6 +31,7 @@ export default abstract class Form<
 
         input.setProps({
           error,
+          value: data.value ?? "",
         });
 
         const isAdd = data ? !error : false;
@@ -33,8 +43,13 @@ export default abstract class Form<
         return acc;
       }, {});
 
-      if (inputs.length === Object.values(formData).length)
-        console.log(formData);
+      if (inputs.length === Object.values(formData).length) {
+        try {
+          await this.onSubmit(formData);
+        } catch (error) {
+          handleError(error, this.getSubmitErrorMessage());
+        }
+      }
     },
   };
 }

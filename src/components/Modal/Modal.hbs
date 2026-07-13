@@ -1,0 +1,13 @@
+<div class="modal {{#unless isOpen}}modal_hidden{{/unless}}">
+  {{#if isOpen}}
+    <div class="modal__overlay" data-action="modal-close"></div>
+
+    <section class="modal__window">
+      <button class="modal__close" type="button" data-action="modal-close">
+        x
+      </button>
+
+      <div class="modal__content" ref="content"></div>
+    </section>
+  {{/if}}
+</div>
