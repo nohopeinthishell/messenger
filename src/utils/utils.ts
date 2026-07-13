@@ -138,3 +138,10 @@ export function set(
 
   return object;
 }
+
+export function formatChatTime(value: string): string {
+  return new Intl.DateTimeFormat("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
+}

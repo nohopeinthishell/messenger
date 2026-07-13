@@ -1,0 +1,15 @@
+<div class="toast-container" aria-live="polite" aria-atomic="true">
+  {{#each toasts}}
+    <div class="toast toast_{{type}}" role="status">
+      <span class="toast__message">{{message}}</span>
+      <button
+        class="toast__close"
+        type="button"
+        aria-label="Закрыть уведомление"
+        data-toast-id="{{id}}"
+      >
+        x
+      </button>
+    </div>
+  {{/each}}
+</div>

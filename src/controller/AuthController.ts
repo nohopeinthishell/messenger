@@ -1,6 +1,7 @@
 import { AuthAPI, type SignInData, type SignUpData } from "../api/AuthAPI";
 import store from "../store/store";
 import { router } from "../router/Router";
+import { handleError } from "../services/toast";
 
 class AuthController {
   private api = new AuthAPI();
@@ -27,7 +28,8 @@ class AuthController {
   async logOut() {
     try {
       await this.api.logOut();
-    } catch {
+    } catch (error) {
+      handleError(error, "Не удалось выйти из аккаунта");
       // если cookie уже невалидная, всё равно считаем пользователя разлогиненным
     }
 

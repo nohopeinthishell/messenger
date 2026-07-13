@@ -1,17 +1,49 @@
 <main class="chats-page">
   <aside class="chats-page__sidebar">
     <header class="chats-page__sidebar-header">
-      {{{ LinkUI href="/settings" text="Профиль >" class="chats-page__profile-link"}}}
-      <input class="chats-page__search" type="search" name="search" placeholder="Поиск" />
+      <div class="chat-page__block">
+        <svg
+          class="chat-page__create"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          data-action="create-chat"
+        >
+          <rect x="0" fill="none" width="24" height="24" />
+          <g>
+            <path
+              d="M21 14v5c0 1.105-.895 2-2 2H5c-1.105 0-2-.895-2-2V5c0-1.105.895-2 2-2h5v2H5v14h14v-5h2z"
+            />
+            <path d="M21 7h-4V3h-2v4h-4v2h4v4h2V9h4" />
+          </g>
+        </svg>
+        {{{LinkUI
+          href="/settings"
+          text="Профиль >"
+          class="chats-page__profile-link"
+        }}}
+      </div>
+
+      <input
+        class="chats-page__search"
+        type="search"
+        name="search"
+        placeholder="Поиск"
+      />
     </header>
 
     <ul class="chat-list">
       {{#each chats}}
         <li>
-          <button class="chat-list__item {{#if active}}chat-list__item_active{{/if}}" type="button">
-            {{{ Avatar class="chat-list__avatar"}}}
+          <button
+            class="chat-list__item {{activeClass}}"
+            type="button"
+            data-action="select-chat"
+            data-chat-title="{{title}}"
+            id="{{id}}"
+          >
+            {{{Avatar class="chat-list__avatar" src=avatar}}}
             <span class="chat-list__content">
-              <span class="chat-list__name">{{name}}</span>
+              <span class="chat-list__name">{{title}}</span>
               <span class="chat-list__message">{{lastMessage}}</span>
             </span>
             <span class="chat-list__time">{{time}}</span>
@@ -22,20 +54,67 @@
   </aside>
 
   <section class="chat">
-    <header class="chat__header">
-      {{{ Avatar class="chat__avatar"}}}
-      <span class="chat__name">{{selectedChat.name}}</span>
-    </header>
+    {{#if selectedChat}}
 
-    <div class="chat__messages">
-      {{#each messages}}
-        <article class="chat-message {{#if own}}chat-message_own{{/if}}">
-          {{text}}
-          <time class="chat-message__time">{{time}}</time>
-        </article>
-      {{/each}}
-    </div>
+      <header class="chat__header">
+        {{{Avatar class="chat__avatar" src=selectedChat.avatar}}}
+        <span class="chat__name">{{selectedChat.title}}</span>
 
-    {{{ FormMessage input=messageForm.input button=messageForm.button }}}
+        <div class="chat-menu {{chatMenuClass}}">
+          <button
+            class="chat-menu__trigger"
+            type="button"
+            data-action="toggle-chat-menu"
+          >
+            ⋮
+          </button>
+
+          <div class="chat-menu__content">
+            <button
+              class="chat-menu__item"
+              type="button"
+              data-action="add-user"
+            >
+              <span class="chat-menu__icon">+</span>
+              Добавить пользователя
+            </button>
+
+            <button
+              class="chat-menu__item"
+              type="button"
+              data-action="delete-user"
+            >
+              <span class="chat-menu__icon">×</span>
+              Удалить пользователя
+            </button>
+
+            <button
+              class="chat-menu__item"
+              type="button"
+              data-action="delete-chat"
+            >
+              <span class="chat-menu__icon">×</span>
+              Удалить чат
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="chat__messages">
+        {{#each messages}}
+          <article class="chat-message {{ownClass}}">
+            {{text}}
+            <time class="chat-message__time">{{time}}</time>
+          </article>
+        {{/each}}
+      </div>
+
+      {{{FormMessage input=messageForm.input button=messageForm.button}}}
+    {{else}}
+      <span class="chat__empty">Выберите чат чтобы отправить сообщение</span>
+    {{/if}}
+
   </section>
+
+  {{{Modal isOpen=isChatModalOpen content=modalContent}}}
 </main>

@@ -19,9 +19,36 @@ export type FormAuthProps = BlockOwnProps & {
 export default class FormAuth extends Form<FormAuthProps> {
   public static componentName = "FormAuth";
 
+  protected getSubmitErrorMessage(): string {
+    return this.props.formType === "signup"
+      ? "Не удалось зарегистрироваться"
+      : "Не удалось войти";
+  }
+
   protected onSubmit(formData: Record<string, string>) {
     if (this.props.formType === "signup") {
-      return authController.signUp(formData as SignUpData);
+      const {
+        email,
+        login,
+        first_name,
+        second_name,
+        phone,
+        password,
+        password_repeat,
+      } = formData;
+
+      if (password !== password_repeat) {
+        throw new Error("Пароли не совпадают");
+      }
+
+      return authController.signUp({
+        email,
+        login,
+        first_name,
+        second_name,
+        phone,
+        password,
+      } as SignUpData);
     }
 
     return authController.signIn(formData as SignInData);

@@ -35,6 +35,8 @@ export default abstract class Block<
 
   protected events: EventListType = {};
 
+  private isMounted = false;
+
   constructor(props: Props = {} as Props) {
     this.props = props;
   }
@@ -60,7 +62,11 @@ export default abstract class Block<
 
   private mountComponent() {
     this.attachListeners();
-    this.componentDidMount();
+
+    if (!this.isMounted) {
+      this.isMounted = true;
+      this.componentDidMount();
+    }
   }
 
   protected componentWillUnmount() {}

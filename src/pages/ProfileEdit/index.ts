@@ -9,7 +9,7 @@ import AvatarUploadForm from "../../components/AvatarUploadForm";
 type ProfileProps = BlockOwnProps &
   Pick<FormProfileProps, "fields" | "button"> & {
     isAvatarModalOpen: boolean;
-    modalContent: Block;
+    modalContent?: Block;
     user?: UpdateProfileData;
   };
 
@@ -24,7 +24,14 @@ class ProfileEdit extends Block<ProfileProps> {
       if (avatar) {
         this.setProps({
           isAvatarModalOpen: true,
-          modalContent: new AvatarUploadForm(),
+          modalContent: new AvatarUploadForm({
+            onSuccess: () => {
+              this.setProps({
+                isAvatarModalOpen: false,
+                modalContent: undefined,
+              });
+            },
+          }),
         });
 
         return;

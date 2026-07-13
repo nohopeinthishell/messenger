@@ -30,7 +30,7 @@ export class UserAPI extends BaseAPI {
       data,
     });
   }
-  
+
   updateAvatar(data: FormData) {
     return this.http.put(
       "https://ya-praktikum.tech/api/v2/user/profile/avatar",
@@ -38,5 +38,11 @@ export class UserAPI extends BaseAPI {
         data,
       },
     );
+  }
+
+  searchUser(login: string) {
+    return this.http.post("https://ya-praktikum.tech/api/v2/user/search", {
+      data: { login },
+    });
   }
 }

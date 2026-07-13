@@ -2,11 +2,13 @@ import "./style.css";
 import template from "./AvatarUploadForm.hbs?raw";
 import { userController } from "../../controller/UserController";
 import Block, { type BlockOwnProps } from "../../framework/Block";
+import { handleError } from "../../services/toast";
 
 type AvatarUploadFormProps = BlockOwnProps & {
   error?: string;
   fileName?: string;
   isUploadError?: boolean;
+  onSuccess?: () => void;
 };
 
 export default class AvatarUploadForm extends Block<AvatarUploadFormProps> {
@@ -33,6 +35,8 @@ export default class AvatarUploadForm extends Block<AvatarUploadFormProps> {
       event.preventDefault();
 
       if (!this.selectedFile) {
+        handleError(new Error("Нужно выбрать файл"));
+
         this.setProps({
           error: "Нужно выбрать файл",
           isUploadError: false,
@@ -46,7 +50,9 @@ export default class AvatarUploadForm extends Block<AvatarUploadFormProps> {
 
       try {
         await userController.updateAvatar(formData);
-      } catch {
+        this.props.onSuccess?.();
+      } catch (error) {
+        handleError(error, "Не удалось загрузить аватар");
         this.selectedFile = null;
         this.setProps({
           error: undefined,

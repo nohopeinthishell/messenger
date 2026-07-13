@@ -34,7 +34,7 @@ class Profile extends Block<ProfileProps> {
       e.preventDefault();
       e.stopPropagation();
 
-      authController.logOut();
+      void authController.logOut();
     },
   };
 

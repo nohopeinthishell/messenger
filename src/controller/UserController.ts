@@ -23,7 +23,9 @@ class UserController {
   }
 
   async updateAvatar(data: FormData) {
-    await this.api.updateAvatar(data);
+    const user = await this.api.updateAvatar(data);
+
+    store.setState("user", user);
   }
 }
 

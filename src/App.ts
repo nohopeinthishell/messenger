@@ -13,11 +13,16 @@ import { registerComponents } from "./framework/RegisterComponent";
 import { router } from "./router/Router";
 import { authController } from "./controller/AuthController";
 import store from "./store/store";
+import ToastContainer from "./components/ToastContainer";
+import { handleError } from "./services/toast";
 
 registerComponents();
 
 export default class App {
+  private toastContainer = new ToastContainer();
+
   render(): void {
+    this.mountToastContainer();
     void this.init();
   }
 
@@ -25,7 +30,15 @@ export default class App {
     await this.isAuthenticated();
     this.initRouter();
     this.attachEventListners();
-  }
+  };
+
+  private mountToastContainer = () => {
+    const container = this.toastContainer.element();
+
+    if (container && !document.body.contains(container)) {
+      document.body.append(container);
+    }
+  };
 
   initRouter = () => {
     router
@@ -49,6 +62,15 @@ export default class App {
   };
 
   attachEventListners = () => {
+    window.addEventListener("error", (event) => {
+      handleError(event.error ?? event.message);
+    });
+
+    window.addEventListener("unhandledrejection", (event) => {
+      event.preventDefault();
+      handleError(event.reason);
+    });
+
     document.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
       const link = target.closest("a");
