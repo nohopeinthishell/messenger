@@ -40,6 +40,7 @@ export const rulesValidation: Record<string, ValidationRule> = {
     pattern: /^\+?\d{10,15}$/,
     message: "Телефон должен содержать 10-15 цифр и может начинаться с плюса",
   },
+  title: requiredTextRule("Название чата не должно быть пустым"),
   message: requiredTextRule("Сообщение не должно быть пустым"),
 };
 

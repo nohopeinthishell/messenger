@@ -1,0 +1,36 @@
+.delete-chat-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.delete-chat-form__title {
+  margin: 0 0 16px;
+  color: #1e1e1e;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.delete-chat-form__text {
+  margin: 0 0 28px;
+  color: #999;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.button-ui.delete-chat-form__submit {
+  width: 100%;
+  background: #ff2f2f;
+}
+
+.button-ui.delete-chat-form__submit:hover {
+  background: #e32828;
+}
+
+.button-ui.delete-chat-form__submit:active {
+  background: #c92222;
+}

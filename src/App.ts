@@ -3,124 +3,86 @@ import NotFound from "./pages/NotFound";
 import Registration from "./pages/Registration";
 import Chat from "./pages/Chat";
 
-import Block from "./framework/Block";
-
-import {
-  authCard,
-  regCard,
-  profile,
-  chatPage,
-  profilePassword,
-  profileEdit,
-} from "./mock";
+import { authCard, regCard, chatPage, profilePassword } from "./mock";
 import ServerError from "./pages/ServerError";
 
 import Profile from "./pages/Profile";
 import ProfilePassword from "./pages/ProfilePassword";
 import ProfileEdit from "./pages/ProfileEdit";
 import { registerComponents } from "./framework/RegisterComponent";
+import { router } from "./router/Router";
+import { authController } from "./controller/AuthController";
+import store from "./store/store";
+import ToastContainer from "./components/ToastContainer";
+import { handleError } from "./services/toast";
 
 registerComponents();
 
-type AppState = {
-  currentPage: string;
-};
-
 export default class App {
-  state: AppState;
-  appElement: HTMLElement;
-
-  constructor() {
-    this.state = {
-      currentPage: "chats",
-    };
-    const appElement = document.getElementById("app");
-
-    if (!appElement) {
-      throw new Error("Element #app not found");
-    }
-
-    this.appElement = appElement;
-  }
+  private toastContainer = new ToastContainer();
 
   render(): void {
-    switch (this.state.currentPage) {
-      case "not-found":
-        this.renderBlock(new NotFound());
-        break;
-      case "auth":
-        this.renderBlock(new Auth({ authCard }));
-        break;
-      case "registration":
-        this.renderBlock(new Registration({ regCard }));
-        break;
-      case "chats":
-        this.renderBlock(new Chat(chatPage));
-        break;
-      case "profile":
-        this.renderBlock(new Profile(profile));
-        break;
-      case "profile-edit":
-        this.renderBlock(new ProfileEdit(profileEdit));
-        break;
-      case "profile-password":
-        this.renderBlock(new ProfilePassword(profilePassword));
-        break;
-      case "server-error":
-        this.renderBlock(new ServerError());
-        break;
-      default:
-        this.renderBlock(new Auth({ authCard }));
-        break;
-    }
-
-    this.attachEventListners();
+    this.mountToastContainer();
+    void this.init();
   }
 
-  renderBlock = (page: Block) => {
-    const pageElement = page.element();
+  private init = async () => {
+    await this.isAuthenticated();
+    this.initRouter();
+    this.attachEventListners();
+  };
 
-    if (!pageElement) {
-      throw new Error("Page element is not created");
+  private mountToastContainer = () => {
+    const container = this.toastContainer.element();
+
+    if (container && !document.body.contains(container)) {
+      document.body.append(container);
     }
+  };
 
-    this.appElement.replaceChildren(pageElement);
+  initRouter = () => {
+    router
+      .use("/", Auth, { authCard }, "guestOnly")
+      .use("/404", NotFound)
+      .use("/500", ServerError)
+      .use("/messenger", Chat, chatPage, "private")
+      .use("/settings", Profile, undefined, "private")
+      .use("/profile-edit", ProfileEdit, undefined, "private")
+      .use("/profile-password", ProfilePassword, profilePassword, "private")
+      .use("/sign-up", Registration, { regCard }, "guestOnly")
+      .start();
+  };
+
+  isAuthenticated = async () => {
+    try {
+      await authController.fetchUser();
+    } catch {
+      store.setState("user", null);
+    }
   };
 
   attachEventListners = () => {
-    const links = document.querySelectorAll(".link-ui");
-    links.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        const target = e.target as HTMLElement;
-        const page = target.dataset.page;
-
-        if (page) {
-          this.changePage(page);
-        }
-      });
+    window.addEventListener("error", (event) => {
+      handleError(event.error ?? event.message);
     });
 
-    // const buttons = document.querySelectorAll(".button-ui");
-    // buttons.forEach((button) => {
-    //   button.addEventListener("click", this.handleButtonClick);
-    // });
-  };
+    window.addEventListener("unhandledrejection", (event) => {
+      event.preventDefault();
+      handleError(event.reason);
+    });
 
-  // handleButtonClick = (e: Event) => {
-  //   const target = e.target as HTMLElement;
-  //   console.log("Button clicked:", target.dataset.action);
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest("a");
 
-  //   const page = target.dataset.page;
+      if (link) {
+        e.preventDefault();
+        const href = link.getAttribute("href");
 
-  //   console.log(page);
-
-  //   if (page) {
-  //     this.changePage(page);
-  //   }
-  // };
-
-  changePage = (page: string) => {
-    this.state.currentPage = page;
-    this.render();
+        if (href) {
+          router.go(href);
+        }
+      }
+    });
   };
 }

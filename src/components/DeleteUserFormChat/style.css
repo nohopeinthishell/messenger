@@ -1,0 +1,22 @@
+.create-chat-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.create-chat-form__title {
+  margin: 0 0 32px;
+  color: #1e1e1e;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.create-chat-form__input {
+  margin-bottom: 28px;
+}
+
+.button-ui.create-chat-form__submit {
+  width: 100%;
+}
