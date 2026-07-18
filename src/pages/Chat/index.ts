@@ -27,8 +27,8 @@ type SelectedChatProps = {
   avatar: string | null;
 };
 
-type MessageProps = {
-  text: string;
+export type MessageProps = {
+  content: string;
   time: string;
   own?: boolean;
   ownClass?: string;

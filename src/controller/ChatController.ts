@@ -1,7 +1,9 @@
 import store from "../store/store";
 import { ChatAPI } from "../api/ChatAPI";
-import { formatChatTime } from "../utils/utils";
+import { formatChatTime, isPlainObject } from "../utils/utils";
 import { UserAPI } from "../api/UserAPI";
+import ChatSocket from "../services/ChatSocket";
+import type { MessageProps } from "../pages/Chat";
 
 type LastMessageType = {
   time: string;
@@ -19,9 +21,42 @@ type ChatType = {
   activeClass?: string;
 };
 
+type SocketMessage = {
+  type: "message";
+  content: string;
+  time?: string;
+  user_id?: number;
+};
+
+function isSocketMessage(data: unknown): data is SocketMessage {
+  return (
+    isPlainObject(data) &&
+    data.type === "message" &&
+    typeof data.content === "string"
+  );
+}
+
+function getCurrentUserId(): number | null {
+  const user = store.getState().user as { id?: unknown } | null | undefined;
+
+  return typeof user?.id === "number" ? user.id : null;
+}
+
+function prepareMessage(message: SocketMessage): MessageProps {
+  const isOwn = message.user_id === getCurrentUserId();
+
+  return {
+    content: message.content,
+    time: message.time ? formatChatTime(message.time) : "",
+    own: isOwn,
+    ownClass: isOwn ? "chat-message_own" : "",
+  };
+}
+
 class ChatController {
   private api = new ChatAPI();
   private userApi = new UserAPI();
+  private socket: ChatSocket | null = null;
 
   async getChats() {
     const chats = await this.api.getChats();
@@ -60,6 +95,8 @@ class ChatController {
     if (!selectedChat) {
       return;
     }
+
+    this.connectToChat(selectedChat.id);
 
     store.setState("selectedChat", selectedChat);
     store.setState("messages", []);
@@ -115,6 +152,53 @@ class ChatController {
     }
 
     await this.api.deleteUsersFromChat(chatId, [user.id]);
+  }
+
+  onMessage(data: unknown) {
+    if (Array.isArray(data)) {
+      const currentMessages = store.getState().messages as MessageProps[];
+
+      const newMessages = data
+        .filter(isSocketMessage)
+        .reverse()
+        .map(prepareMessage);
+
+      store.setState("messages", [...newMessages, ...currentMessages]);
+      return;
+    }
+
+    if (isSocketMessage(data)) {
+      const messages =
+        (store.getState().messages as MessageProps[] | undefined) ?? [];
+
+      store.setState("messages", [...messages, prepareMessage(data)]);
+    }
+  }
+
+  async connectToChat(chatId: number) {
+    const user = store.getState().user as {
+      id: number;
+      login: string;
+    };
+    if (user?.id) {
+      const resp = (await this.api.connectChat(chatId)) as { token: string };
+
+      if (resp) {
+        this.socket?.close();
+        this.socket = new ChatSocket({
+          userId: user.id,
+          chatId: chatId,
+          token: resp.token,
+          onMessage: this.onMessage,
+        });
+        this.socket.connect();
+      }
+    }
+  }
+
+  sendMessage(content: string) {
+    const message = content.trim();
+    if (message) this.socket?.sendMessage(message);
   }
 }
 

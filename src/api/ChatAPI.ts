@@ -42,4 +42,9 @@ export class ChatAPI extends BaseAPI {
       },
     });
   }
+
+  connectChat(chatId: number) {
+    return this.http.post(`${this.baseUrl}/chats/token/${chatId}`);
+  }
+  
 }
