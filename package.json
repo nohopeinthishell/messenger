@@ -18,7 +18,9 @@
     "lint": "npm run lint:types && npm run lint:js && npm run lint:css",
     "lint:js": "eslint .",
     "lint:fix": "eslint --fix .",
-    "lint:types": "tsc --noEmit"
+    "lint:types": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -32,7 +34,8 @@
     "stylelint-config-standard": "^40.0.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "handlebars": "^4.7.9"

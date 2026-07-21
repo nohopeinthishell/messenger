@@ -2,7 +2,7 @@ import store from "../store/store";
 import { ChatAPI } from "../api/ChatAPI";
 import { formatChatTime, isPlainObject } from "../utils/utils";
 import { UserAPI } from "../api/UserAPI";
-import ChatSocket from "../services/ChatSocket";
+import ChatSocket from "./ChatSocketController";
 import type { MessageProps } from "../pages/Chat";
 
 type LastMessageType = {
