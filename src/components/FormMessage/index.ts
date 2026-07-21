@@ -2,6 +2,7 @@ import template from "./FormMessage.hbs?raw";
 import type { BlockOwnProps } from "../../framework/Block";
 import type { InputUIProps } from "../../ui/InputUI";
 import Form from "../Form";
+import { chatController } from "../../controller/ChatController";
 
 type FormMessageButtonProps = {
   text: string;
@@ -21,7 +22,7 @@ export default class FormMessage extends Form<FormMessageProps> {
   public static componentName = "FormMessage";
 
   protected onSubmit(formData: Record<string, string>) {
-    console.log(formData);
+    chatController.sendMessage(formData.message);
   }
 
   protected template = template;

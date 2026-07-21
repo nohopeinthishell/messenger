@@ -47,7 +47,7 @@ class HTTPTransport {
       xhr.open(
         method,
         isGet && data && !(data instanceof FormData)
-          ? `${url}${queryString(data)}`
+          ? `${url}?${queryString(data)}`
           : url,
       );
       xhr.withCredentials = true;
